@@ -1,6 +1,7 @@
 package com.how2java.test;
  
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -77,14 +78,20 @@ public class TestHibernate {
 		System.out.println();
 	 }*/
        //测试product-category多对一的情况
-        Category c = new Category();
+       /* Category c = new Category();
         c.setName("c1");
         s.save(c);
         
         Product p =  (Product)s.get(Product.class, 8);
         p.setCategory(c);
-        s.update(p);
+        s.update(p);*/
         
+        //category-poduct一对多的关系
+        Category c = (Category)s.get(Category.class, 4);
+        Set<Product> p = c.getProducts();
+        for (Product product : p) {
+			System.out.println(product.getName());
+		}
         s.getTransaction().commit();
         s.close();
         sf.close();
