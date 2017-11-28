@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
+import com.how2java.pojo.Category;
 import com.how2java.pojo.Product;
  
 public class TestHibernate {
@@ -75,7 +76,15 @@ public class TestHibernate {
 		}
 		System.out.println();
 	 }*/
-       
+       //测试product-category多对一的情况
+        Category c = new Category();
+        c.setName("c1");
+        s.save(c);
+        
+        Product p =  (Product)s.get(Product.class, 8);
+        p.setCategory(c);
+        s.update(p);
+        
         s.getTransaction().commit();
         s.close();
         sf.close();

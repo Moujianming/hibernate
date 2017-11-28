@@ -1,10 +1,22 @@
 package com.how2java.pojo;
 
+/**
+ * @author 377321
+ *
+ */
 public class Product {
 
 	int id;
 	String name;
 	float price;
+	Category category;
+	
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 	public int getId() {
 		return id;
 	}
