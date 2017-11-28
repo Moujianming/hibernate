@@ -1,9 +1,15 @@
 package com.how2java.test;
  
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
- 
+import org.hibernate.criterion.Restrictions;
+
 import com.how2java.pojo.Product;
  
 public class TestHibernate {
@@ -14,11 +20,62 @@ public class TestHibernate {
         Session s = sf.openSession();
         s.beginTransaction();
  
-        Product p = new Product();
-        p.setName("iphone7");
-        p.setPrice(7000);
-        s.save(p);
-         
+        /*for(int i=0;i<10;i++)
+        {
+        	 Product p = new Product();
+             p.setName("iphone"+i);
+             p.setPrice(i);
+             s.save(p);
+        }*/
+        //获取对象
+       /* Product p = (Product)s.get(Product.class, 6);
+        System.out.println(p.getName());*/
+        //删除对象
+        /*Product p =  (Product)s.get(Product.class, 6);
+        s.delete(p);*/
+        //修改对象
+        /*Product p = (Product)s.get(Product.class, 5);
+        System.out.println(p.getName());
+        p.setName("iphone X");
+        s.update(p);*/
+       // 查询HQL,hibernate自带的查询语句
+       /*Query q = s.createQuery("from Product p where p.name like ?");
+        q.setString(0, "%iphone1%");
+        List<Product> ps = q.list();
+        for(int i =0;i<ps.size();i++)
+        {
+        	
+        	System.out.println(ps.get(i).getName());
+        }*/
+        //使用Criteria查询
+        /*Criteria c = s.createCriteria(Product.class);
+        c.add(Restrictions.like("name", "%iphone%"));
+        List<Product> ps = c.list();
+        for(int i =0;i<ps.size();i++)
+        {
+        	System.out.println(ps.get(i).getName());
+        }*/
+        //通过标准的sql语句查询
+       /* Query q = s.createSQLQuery("select * from product_");
+        List<Object[]> list = q.list();
+        //方法一的for形式
+       for(int i =0;i<list.size();i++)
+       {
+    	   Object[] obj  = list.get(i);
+    	   for(int j = 0;j<obj.length;j++)
+    	   {
+    		   System.out.print(obj[j]+" ");
+    	   }
+    	   System.out.println();
+       }
+        //方法二的for形式(foreach)
+       for (Object[] objects : list) {
+		for (Object object : objects) {
+			System.out.print(object+" ");
+		}
+		System.out.println();
+	 }*/
+       
         s.getTransaction().commit();
         s.close();
         sf.close();
