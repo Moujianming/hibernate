@@ -97,7 +97,7 @@ public class TestHibernate {
         
         //实现User-product多对多的关系
         
-        Set<User> users = new HashSet();
+       /* Set<User> users = new HashSet();
         for(int i=0;i<3;i++)
         {
         	User u = new User();
@@ -108,9 +108,17 @@ public class TestHibernate {
         //1个产品被3个用户购买
         Product p =(Product) s.get(Product.class, 1);
         p.setUsers(users);
-        s.save(p);
+        s.save(p);*/
         
-        s.getTransaction().commit();
+        //测试hibernate事务
+        /* Product p1=  (Product)s.get(Product.class, 1);
+         s.delete(p1);
+         Product p2 = (Product)s.get(Product.class, 2);
+         p2.setName("超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节");
+         s.update(p2);*/
+         
+         
+         s.getTransaction().commit();
         s.close();
         sf.close();
     }
