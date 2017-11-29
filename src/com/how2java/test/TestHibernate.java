@@ -180,7 +180,7 @@ public class TestHibernate {
         System.out.println("log3");*/
         
         //2º∂ª∫¥Ê
-        System.out.println("log1");
+       /* System.out.println("log1");
         Category c1 = (Category)s.get(Category.class,1);
         System.out.println("log2");
         Category c2 = (Category)s.get(Category.class,1);
@@ -193,7 +193,21 @@ public class TestHibernate {
         Category c3 = (Category)s2.get(Category.class,2);
         System.out.println("log5");
         s2.getTransaction().commit();
-        s2.clear();
+        s2.clear();*/
+        
+        //∑÷“≥
+        String name = "iphone";
+        Criteria c= s.createCriteria(Product.class);
+        c.add(Restrictions.like("name", "%"+name+"%"));
+        c.setFirstResult(2);
+        c.setMaxResults(5);
+        List<Product> list = c.list();
+        for (Product product : list) {
+			System.out.println(product.getId());
+		}
+        
+        s.getTransaction();
+        s.close();
         sf.close();
     }
  
