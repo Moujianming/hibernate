@@ -173,15 +173,27 @@ public class TestHibernate {
         /**
          * 当查询的条件是一样的时候,session会存放第一次缓存,当不一样的时候会再次查询
          */
-        System.out.println("log1");
+        /*System.out.println("log1");
         Category c1 = (Category)s.get(Category.class,1);
         System.out.println("log2");
         Category c2= (Category)s.get(Category.class,1);
+        System.out.println("log3");*/
+        
+        //2级缓存
+        System.out.println("log1");
+        Category c1 = (Category)s.get(Category.class,1);
+        System.out.println("log2");
+        Category c2 = (Category)s.get(Category.class,1);
         System.out.println("log3");
-        
-        
         s.getTransaction().commit();
         s.close();
+        Session s2 = sf.openSession();
+        s2.beginTransaction();
+        System.out.println("log4");
+        Category c3 = (Category)s2.get(Category.class,2);
+        System.out.println("log5");
+        s2.getTransaction().commit();
+        s2.clear();
         sf.close();
     }
  
