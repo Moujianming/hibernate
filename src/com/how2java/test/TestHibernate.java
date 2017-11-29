@@ -1,6 +1,10 @@
 package com.how2java.test;
  
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -10,7 +14,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
+import com.how2java.pojo.Category;
 import com.how2java.pojo.Product;
+import com.how2java.pojo.User;
  
 public class TestHibernate {
     public static void main(String[] args) {
@@ -27,18 +33,18 @@ public class TestHibernate {
              p.setPrice(i);
              s.save(p);
         }*/
-        //»ñÈ¡¶ÔÏó
+        //è·å–å¯¹è±¡
        /* Product p = (Product)s.get(Product.class, 6);
         System.out.println(p.getName());*/
-        //É¾³ı¶ÔÏó
+        //åˆ é™¤å¯¹è±¡
         /*Product p =  (Product)s.get(Product.class, 6);
         s.delete(p);*/
-        //ĞŞ¸Ä¶ÔÏó
+        //ä¿®æ”¹å¯¹è±¡
         /*Product p = (Product)s.get(Product.class, 5);
         System.out.println(p.getName());
         p.setName("iphone X");
         s.update(p);*/
-       // ²éÑ¯HQL,hibernate×Ô´øµÄ²éÑ¯Óï¾ä
+       // æŸ¥è¯¢HQL,hibernateè‡ªå¸¦çš„æŸ¥è¯¢è¯­å¥
        /*Query q = s.createQuery("from Product p where p.name like ?");
         q.setString(0, "%iphone1%");
         List<Product> ps = q.list();
@@ -47,7 +53,7 @@ public class TestHibernate {
         	
         	System.out.println(ps.get(i).getName());
         }*/
-        //Ê¹ÓÃCriteria²éÑ¯
+        //ä½¿ç”¨CriteriaæŸ¥è¯¢
         /*Criteria c = s.createCriteria(Product.class);
         c.add(Restrictions.like("name", "%iphone%"));
         List<Product> ps = c.list();
@@ -55,10 +61,10 @@ public class TestHibernate {
         {
         	System.out.println(ps.get(i).getName());
         }*/
-        //Í¨¹ı±ê×¼µÄsqlÓï¾ä²éÑ¯
+        //é€šè¿‡æ ‡å‡†çš„sqlè¯­å¥æŸ¥è¯¢
        /* Query q = s.createSQLQuery("select * from product_");
         List<Object[]> list = q.list();
-        //·½·¨Ò»µÄforĞÎÊ½
+        //æ–¹æ³•ä¸€çš„forå½¢å¼
        for(int i =0;i<list.size();i++)
        {
     	   Object[] obj  = list.get(i);
@@ -68,14 +74,45 @@ public class TestHibernate {
     	   }
     	   System.out.println();
        }
-        //·½·¨¶şµÄforĞÎÊ½(foreach)
+        //æ–¹æ³•äºŒçš„forå½¢å¼(foreach)
        for (Object[] objects : list) {
 		for (Object object : objects) {
 			System.out.print(object+" ");
 		}
 		System.out.println();
 	 }*/
-       
+
+       //æµ‹è¯•product-categoryå¤šå¯¹ä¸€çš„æƒ…å†µ
+       /* Category c = new Category();
+        c.setName("c1");
+        s.save(c);
+        
+        Product p =  (Product)s.get(Product.class, 8);
+        p.setCategory(c);
+        s.update(p);*/
+        
+        //category-poductä¸€å¯¹å¤šçš„å…³ç³»
+        /*Category c = (Category)s.get(Category.class, 4);
+        Set<Product> p = c.getProducts();
+        for (Product product : p) {
+			System.out.println(product.getName());
+		}*/
+        
+        //å®ç°User-productå¤šå¯¹å¤šçš„å…³ç³»
+        
+        Set<User> users = new HashSet();
+        for(int i=0;i<3;i++)
+        {
+        	User u = new User();
+        	u.setName("user"+i);
+        	users.add(u);
+        	s.save(u);
+        }
+        //1ä¸ªäº§å“è¢«3ä¸ªç”¨æˆ·è´­ä¹°
+        Product p =(Product) s.get(Product.class, 1);
+        p.setUsers(users);
+        s.save(p);
+
         s.getTransaction().commit();
         s.close();
         sf.close();
