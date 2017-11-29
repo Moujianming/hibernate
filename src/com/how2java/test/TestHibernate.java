@@ -161,13 +161,24 @@ public class TestHibernate {
        /* Category c = (Category)s.get(Category.class,4);
         s.delete(c);*/
         //级联save-update
-        Category c = (Category)s.get(Category.class,3);
+       /* Category c = (Category)s.get(Category.class,3);
         Product p1= new Product();
         p1.setName("product01");
         Product p2= new Product();
         p2.setName("product01");
         c.getProducts().add(p1);
-        c.getProducts().add(p2);
+        c.getProducts().add(p2);*/
+        
+        //1级缓存
+        /**
+         * 当查询的条件是一样的时候,session会存放第一次缓存,当不一样的时候会再次查询
+         */
+        System.out.println("log1");
+        Category c1 = (Category)s.get(Category.class,1);
+        System.out.println("log2");
+        Category c2= (Category)s.get(Category.class,1);
+        System.out.println("log3");
+        
         
         s.getTransaction().commit();
         s.close();
