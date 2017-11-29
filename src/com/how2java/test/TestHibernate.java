@@ -1,5 +1,6 @@
 package com.how2java.test;
  
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.how2java.pojo.Category;
 import com.how2java.pojo.Product;
+import com.how2java.pojo.User;
  
 public class TestHibernate {
     public static void main(String[] args) {
@@ -87,11 +89,27 @@ public class TestHibernate {
         s.update(p);*/
         
         //category-poduct一对多的关系
-        Category c = (Category)s.get(Category.class, 4);
+        /*Category c = (Category)s.get(Category.class, 4);
         Set<Product> p = c.getProducts();
         for (Product product : p) {
 			System.out.println(product.getName());
-		}
+		}*/
+        
+        //实现User-product多对多的关系
+        
+        Set<User> users = new HashSet();
+        for(int i=0;i<3;i++)
+        {
+        	User u = new User();
+        	u.setName("user"+i);
+        	users.add(u);
+        	s.save(u);
+        }
+        //1个产品被3个用户购买
+        Product p =(Product) s.get(Product.class, 1);
+        p.setUsers(users);
+        s.save(p);
+        
         s.getTransaction().commit();
         s.close();
         sf.close();

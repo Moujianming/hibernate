@@ -1,5 +1,7 @@
 package com.how2java.pojo;
 
+import java.util.Set;
+
 /**
  * @author 377321
  *
@@ -10,7 +12,7 @@ public class Product {
 	String name;
 	float price;
 	Category category;
-	
+	Set<User> users;
 	public Category getCategory() {
 		return category;
 	}
@@ -34,6 +36,12 @@ public class Product {
 	}
 	public void setPrice(float price) {
 		this.price = price;
+	}
+	public Set<User> getUsers() {
+		return users;
+	}
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 	
 }
