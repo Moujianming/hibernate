@@ -10,7 +10,7 @@
 			</generator>
 		</id>
 		<property name="name" />
-		<set name="products" lazy="false">
+		<set name="products" lazy="true"><!--如果将lazy改为true,将是关系延迟加载  -->
 		<key column="cid" not-null="false"></key>
 		<one-to-many class="Product"/>
 		</set>

@@ -145,12 +145,16 @@ public class TestHibernate {
         System.out.println("log1");
         System.out.println(p.getName());
         System.out.println("log2");*/
-        Product p = (Product)s.get(Product.class, 1);
+        /*Product p = (Product)s.get(Product.class, 1);
         System.out.println("log1");
         System.out.println(p.getName());
-        System.out.println("log2");  
+        System.out.println("log2"); */ 
         
-        
+        //πÿœµ—”≥Ÿº”‘ÿ
+        Category c = (Category)s.get(Category.class,2);
+        System.out.println("log1");
+        System.out.println(c.getProducts());
+        System.out.println("log1");
         s.getTransaction().commit();
         s.close();
         sf.close();
