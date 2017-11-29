@@ -151,10 +151,24 @@ public class TestHibernate {
         System.out.println("log2"); */ 
         
         //关系延迟加载
-        Category c = (Category)s.get(Category.class,2);
+        /*Category c = (Category)s.get(Category.class,2);
         System.out.println("log1");
         System.out.println(c.getProducts());
-        System.out.println("log1");
+        System.out.println("log1");*/
+        
+        
+        //级联delete
+       /* Category c = (Category)s.get(Category.class,4);
+        s.delete(c);*/
+        //级联save-update
+        Category c = (Category)s.get(Category.class,3);
+        Product p1= new Product();
+        p1.setName("product01");
+        Product p2= new Product();
+        p2.setName("product01");
+        c.getProducts().add(p1);
+        c.getProducts().add(p2);
+        
         s.getTransaction().commit();
         s.close();
         sf.close();

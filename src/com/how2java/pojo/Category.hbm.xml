@@ -10,7 +10,9 @@
 			</generator>
 		</id>
 		<property name="name" />
-		<set name="products" lazy="true"><!--如果将lazy改为true,将是关系延迟加载  -->
+		<!-- <set name="products" lazy="true"> --><!--如果将lazy改为true,将是关系延迟加载  -->
+		<!-- <set name="products" cascade="delete" lazy="false"> --><!--级联为delete  -->
+		<set name="products" cascade="save-update" lazy="false"><!-- save-update级联 -->
 		<key column="cid" not-null="false"></key>
 		<one-to-many class="Product"/>
 		</set>
