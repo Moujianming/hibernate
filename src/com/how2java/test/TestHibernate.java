@@ -245,35 +245,4 @@ public class TestHibernate {
     }
  
 }
-        	User u = new User();
-        	u.setName("user"+i);
-        	users.add(u);
-        	s.save(u);
-        }
-        //1个产品被3个用户购买
-        Product p =(Product) s.get(Product.class, 1);
-        p.setUsers(users);
-        s.save(p);*/
-        
-        //测试hibernate事务
-        /* Product p1=  (Product)s.get(Product.class, 1);
-         s.delete(p1);
-         Product p2 = (Product)s.get(Product.class, 2);
-         p2.setName("超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节");
-         s.update(p2);*/
-         
-         
-        //测试hibernate事务
-        /* Product p1=  (Product)s.get(Product.class, 1);
-         s.delete(p1);
-         Product p2 = (Product)s.get(Product.class, 2);
-         p2.setName("超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节超过30个字节");
-         s.update(p2);*/
-         
-         
-         s.getTransaction().commit();
-        s.close();
-        sf.close();
-    }
- 
-}
+      
