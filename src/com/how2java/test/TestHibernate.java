@@ -196,17 +196,29 @@ public class TestHibernate {
         s2.clear();*/
         
         //分页
-        String name = "iphone";
+       /* String name = "iphone";
         Criteria c= s.createCriteria(Product.class);
         c.add(Restrictions.like("name", "%"+name+"%"));
-        c.setFirstResult(2);
+        c.setFirstResult(0);
         c.setMaxResults(5);
         List<Product> list = c.list();
         for (Product product : list) {
 			System.out.println(product.getId());
-		}
+		}*/
         
-        s.getTransaction();
+        /**
+         * get和load获取对象
+         */
+        System.out.println("log1");
+        Product p = (Product) s.get(Product.class, 1);
+        System.out.println("log2");
+        Product p2 = (Product) s.load(Product.class, 2);
+        System.out.println("log3");
+        System.out.println(p2.getName());
+        System.out.println("log4");
+        
+        
+        s.getTransaction().commit();
         s.close();
         sf.close();
     }
