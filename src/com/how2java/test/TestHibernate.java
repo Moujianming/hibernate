@@ -1,5 +1,6 @@
 package com.how2java.test;
  import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -209,17 +210,94 @@ public class TestHibernate {
         /**
          * get和load获取对象
          */
-        System.out.println("log1");
+        /*System.out.println("log1");
         Product p = (Product) s.get(Product.class, 1);
         System.out.println("log2");
         Product p2 = (Product) s.load(Product.class, 2);
         System.out.println("log3");
         System.out.println(p2.getName());
-        System.out.println("log4");
+        System.out.println("log4");*/
         
+        /*System.out.println("log1");
+        Product p = (Product)s.get(Product.class, 5);
+        System.out.println("log2");
+        Product p2 = (Product)s.load(Product.class, 5);
+        System.out.println("log3");
+         
+        Product p3 = (Product)s.get(Product.class, 500);
+        System.out.println("p3="+p3);
+         
+        Product p4 = (Product)s.load(Product.class, 500);
+        System.out.println("p3="+p4);*/
         
+        /**
+         * 2种session方法,OpenSession,getCurrentSession
+         */
+        //首先关掉前面的打开的session
+      /*  s.getTransaction().commit();
+        s.close();
+        
+        Session s1 = sf.openSession();
+        Session s2 = sf.openSession();
+        System.out.println(s1==s2);//打印得到false
+        s1.close();
+        s2.close();*/
+       
+        /**
+         * N+1
+         */
+        /*String name = "iphone";
+        
+        Query q =s.createQuery("from Product p where p.name like ?");
+         
+        q.setString(0, "%"+name+"%");
+        
+        Iterator<Product> it= q.iterate();
+        while(it.hasNext()){
+            Product p =it.next();
+            System.out.println(p.getName());
+        }*/
+        
+        /**
+         *返回满足条件的总数
+         */
+        
+        /*String name = "iphone";
+        Query q = s.createQuery("select count(*) from Product p where p.name like ?");
+        q.setString(0, "%"+name+"%");
+        Object num = q.uniqueResult();
+        System.out.println(num);*/
+        /**
+         * Hibernate使用乐观锁来处理脏数据问题
+         */
         s.getTransaction().commit();
         s.close();
+        //故意制造脏数据
+        Session s1 = sf.openSession();
+        Session s2 = sf.openSession();
+        Product p0 = (Product)s1.get(Product.class, 1);
+        System.out.println("修改前的价格:"+p0.getPrice());
+        s1.beginTransaction();
+        s2.beginTransaction();
+        
+        Product p1 = (Product)s1.get(Product.class, 1);
+        p1.setPrice(p1.getPrice()+1000);
+        
+        Product p2 = (Product)s2.get(Product.class, 1);
+        p2.setPrice(p2.getPrice()+1000);
+        s1.update(p1);
+        s2.update(p2);
+        
+        s1.getTransaction().commit();
+        s2.getTransaction().commit();
+       
+        Product p3 = (Product)s2.get(Product.class, 1);
+        System.out.println("修改后的价格:"+p3.getPrice());
+        s1.close();
+        s2.close();
+        
+      
+        
         sf.close();
     }
  

@@ -13,6 +13,14 @@ public class Product {
 	float price;
 	Category category;
 	Set<User> users;
+	int version;
+	
+	public int getVersion() {
+		return version;
+	}
+	public void setVersion(int version) {
+		this.version = version;
+	}
 	public Category getCategory() {
 		return category;
 	}
